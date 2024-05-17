@@ -19,7 +19,7 @@ class InvertedIndex:
     def merge_jsons(self, paths):
         for path in paths:
             df = pd.read_json(path)
-            df = df.drop(list(set(df.columns) - self.columns_to_keep))
+            df = df.drop(columns=list(set(df.columns) - self.columns_to_keep))
             self.list_df.append(df)
         self.df = pd.concat(self.list_df)
 
@@ -28,7 +28,7 @@ class InvertedIndex:
         """ Remove punctuation, cast to lower case and split the message """
         cleaned_message = re.sub(r'\W+', ' ', message.lower())
         return set(cleaned_message.split())
-            
+
 
     def get_inverted_index(self):
         for idx, row in df.iterrows():
@@ -56,7 +56,7 @@ class InvertedIndex:
     def find(self, text, encoding=None):
         words = self.preprocess(text)
         possible_documents = []
-        
+
         if encoding is None:
             for word in words:
                 if word in self.inv_idx:
@@ -83,4 +83,3 @@ class InvertedIndex:
             intersection = set.intersection(*possible_documents)
 
         return self.df.iloc(list(intersection))
-
