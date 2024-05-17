@@ -27,7 +27,7 @@ def decode_delta_single(encoded):
 def encode_gamma_single(N):
     """ Source link: https://en.wikipedia.org/wiki/Elias_gamma_coding """
     N_bin = bin(N)[2:]
-    result = '0' * (len(N_bin) - 1) + N_bin 
+    result = '0' * (len(N_bin) - 1) + N_bin
     return result
 
 def decode_gamma_single(encoded):
