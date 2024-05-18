@@ -24,27 +24,24 @@ class Tester:
         inv_idx = InvertedIndex()
         inv_idx.merge_jsons(['data/naukamsu.json'])
         inv_idx.get_inverted_index()
-        df = inv_idx.find('Ğåêòîğ ÌÃÓ', encoding=None)
-        assert True
+        df = inv_idx.find('ÃÃ¥ÃªÃ²Ã®Ã° ÃŒÃƒÃ“', encoding=None)
     
     def pass_encode_delta_pass(self):
         inv_idx = InvertedIndex()
         inv_idx.merge_jsons(['data/naukamsu.json'])
         inv_idx.get_inverted_index()
         inv_idx.encode_delta()
-        assert True
 
     def pass_encode_gamma(self):
         inv_idx = InvertedIndex()
         inv_idx.merge_jsons(['data/naukamsu.json'])
         inv_idx.get_inverted_index()
         inv_idx.encode_delta()
-        assert True
 
     def test_find(self):
         inv_idx = InvertedIndex()
         inv_idx.merge_jsons(['data/naukamsu.json'])
         inv_idx.get_inverted_index()
-        df = inv_idx.find('Ğåêòîğ ÌÃÓ', encoding=None)
-        assert all(word in inv_idx.preprocess(row['message']) for idx, row in df.iterrows() for word in inv_idx.preprocess('Ğåêòîğ ÌÃÓ'))
+        df = inv_idx.find('ÃÃ¥ÃªÃ²Ã®Ã° ÃŒÃƒÃ“', encoding=None)
+        assert all(word in inv_idx.preprocess(row['message']) for idx, row in df.iterrows() for word in inv_idx.preprocess('ÃÃ¥ÃªÃ²Ã®Ã° ÃŒÃƒÃ“'))
     
