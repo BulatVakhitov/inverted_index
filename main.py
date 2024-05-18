@@ -22,8 +22,9 @@ class InvertedIndex:
             df = pd.read_json(path)
             df = df.drop(columns=list(set(df.columns) - self.columns_to_keep))
             self.list_df.append(df)
-        self.df = pd.concat(self.list_df)
-        self.df = self.df[self.df['message'].notna()]
+        self.df = pd.concat(self.list_df, ignore_index=True)
+        self.df = self.df[self.df['message'].notna()] # filter out Nans and empty messages
+        self.df = self.df[self.df['message'] != '']
 
 
     def preprocess(self, message):
@@ -87,4 +88,4 @@ class InvertedIndex:
             possible_documents = possible_documents[:-1]
             intersection = set.intersection(*possible_documents)
 
-        return self.df.iloc[list(intersection)]
+        return self.df.loc[list(intersection)]
