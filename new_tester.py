@@ -14,9 +14,9 @@ class Tester:
     @pytest.mark.parametrize(
         'paths',
         [
-            ['data/meduzalive.json', 'data/naukamsu.json', 'data/spbuniversity.json'],
-            ['data/meduzalive.json'],
-            []
+            (['data/meduzalive.json', 'data/naukamsu.json', 'data/spbuniversity.json']),
+            (['data/meduzalive.json']),
+            ([])
         ]
     )
     def test_merge_jsons(self, paths):
@@ -24,7 +24,11 @@ class Tester:
         inv_idx.merge_jsons(paths)
         len_sum = 0
         for path in paths:
-            len_sum += len(pd.read_json(path))
+            df = pd.read_json(path)
+            df = df.drop(columns=list(set(df.columns) - inv_idx.columns_to_keep))
+            df = df[df['message'].notna()]
+            df = df[df['message'] != '']
+            len_sum += len(df)
         assert len_sum == len(inv_idx.df)
     
     def test_encode_decode_delta(self):
