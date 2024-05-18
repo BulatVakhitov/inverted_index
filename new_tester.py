@@ -47,7 +47,7 @@ class Tester:
             ([], '')
         ]
     )
-    def pass_find_pass(self, paths, text):
+    def pass_find(self, paths, text):
         inv_idx = InvertedIndex()
         inv_idx.merge_jsons(paths)
         inv_idx.get_inverted_index()
@@ -60,7 +60,7 @@ class Tester:
             []
         ]
     )
-    def pass_encode_delta_pass(self, paths):
+    def pass_encode_delta(self, paths):
         inv_idx = InvertedIndex()
         inv_idx.merge_jsons(paths)
         inv_idx.get_inverted_index()
