@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 
 from collections import defaultdict
+from bitstring import BitArray
 
 from utils import encode_delta_single, encode_gamma_single, decode_delta_single, decode_gamma_single
 
@@ -18,13 +19,17 @@ class InvertedIndex:
 
 
     def merge_jsons(self, paths):
-        for path in paths:
-            df = pd.read_json(path)
-            df = df.drop(columns=list(set(df.columns) - self.columns_to_keep))
-            self.list_df.append(df)
-        self.df = pd.concat(self.list_df, ignore_index=True)
-        self.df = self.df[self.df['message'].notna()] # filter out Nans and empty messages
-        self.df = self.df[self.df['message'] != '']
+        if len(paths) > 0:
+            for path in paths:
+                df = pd.read_json(path)
+                df = df.drop(columns=list(set(df.columns) - self.columns_to_keep))
+                self.list_df.append(df)
+
+            self.df = pd.concat(self.list_df, ignore_index=True)
+            self.df = self.df[self.df['message'].notna()] # filter out Nans and empty messages
+            self.df = self.df[self.df['message'] != '']
+        else:
+            raise ValueError('Empty paths!')
 
 
     def preprocess(self, message):
@@ -42,6 +47,16 @@ class InvertedIndex:
 
         for k, v in self.inv_idx.items():
             self.inv_idx[k] = sorted(list(set(v)))
+
+
+    def reset_inv_idx(self):
+        if len(self.inv_idx.keys()) > 0:
+            self.inv_idx = defaultdict(list)
+        if len(self.inv_idx_delta.keys()) > 0:
+            self.inv_idx_delta = defaultdict(list)
+        if len(self.inv_idx_gamma.keys()) > 0:
+            self.inv_idx_gamma = defaultdict(list)
+
 
     def encode_delta(self):
         for word, list_idx in self.inv_idx.items():

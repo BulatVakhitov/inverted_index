@@ -40,9 +40,9 @@ class Tester:
     @pytest.mark.parametrize(
         ('paths', 'text'), 
         [
-            (['data/naukamsu.json'], 'ÌÃÓ'),
-            (['data/naukamsu.json'], 'Ğåêòîğ ÌÃÓ'),
-            ([], 'Ğåêòîğ ÌÃÓ'),
+            (['data/naukamsu.json'], 'ÃŒÃƒÃ“'),
+            (['data/naukamsu.json'], 'ÃÃ¥ÃªÃ²Ã®Ã° ÃŒÃƒÃ“'),
+            ([], 'ÃÃ¥ÃªÃ²Ã®Ã° ÃŒÃƒÃ“'),
             (['data/naukamsu.json'], ''),
             ([], '')
         ]
@@ -82,9 +82,9 @@ class Tester:
     @pytest.mark.parametrize(
         ('paths', 'text'), 
         [
-            (['data/naukamsu.json'], 'ÌÃÓ'),
-            (['data/naukamsu.json'], 'Ğåêòîğ ÌÃÓ'),
-            ([], 'Ğåêòîğ ÌÃÓ'),
+            (['data/naukamsu.json'], 'ÃŒÃƒÃ“'),
+            (['data/naukamsu.json'], 'ÃÃ¥ÃªÃ²Ã®Ã° ÃŒÃƒÃ“'),
+            ([], 'ÃÃ¥ÃªÃ²Ã®Ã° ÃŒÃƒÃ“'),
             (['data/naukamsu.json'], ''),
             ([], '')
         ]
