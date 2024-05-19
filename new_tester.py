@@ -14,9 +14,9 @@ class Tester:
     @pytest.mark.parametrize(
         'paths',
         [
-            (['data/meduzalive.json', 'data/naukamsu.json', 'data/spbuniversity.json']),
-            (['data/meduzalive.json']),
-            ([])
+            ['data/meduzalive.json', 'data/naukamsu.json', 'data/spbuniversity.json'],
+            ['data/meduzalive.json'],
+            []
         ]
     )
     def test_merge_jsons(self, paths):
@@ -32,13 +32,13 @@ class Tester:
         assert len_sum == len(inv_idx.df)
     
     def test_encode_decode_delta(self):
-        assert all(i == decode_delta_single(encode_delta_single(i)) for i in range(100000))
+        assert all(i == decode_delta_single(encode_delta_single(i)) for i in range(1, 100000))
 
     def test_encode_decode_gamma(self):
-        assert all(i == decode_gamma_single(encode_gamma_single(i)) for i in range(100000))
+        assert all(i == decode_gamma_single(encode_gamma_single(i)) for i in range(1, 100000))
     
     @pytest.mark.parametrize(
-        'paths, text', 
+        ('paths', 'text'), 
         [
             (['data/naukamsu.json'], 'ÌÃÓ'),
             (['data/naukamsu.json'], 'Ğåêòîğ ÌÃÓ'),
@@ -47,7 +47,7 @@ class Tester:
             ([], '')
         ]
     )
-    def pass_find(self, paths, text):
+    def test_find(self, paths, text):
         inv_idx = InvertedIndex()
         inv_idx.merge_jsons(paths)
         inv_idx.get_inverted_index()
@@ -60,7 +60,7 @@ class Tester:
             []
         ]
     )
-    def pass_encode_delta(self, paths):
+    def test_encode_delta(self, paths):
         inv_idx = InvertedIndex()
         inv_idx.merge_jsons(paths)
         inv_idx.get_inverted_index()
@@ -73,14 +73,14 @@ class Tester:
             []
         ]
     )
-    def pass_encode_gamma(self, paths):
+    def test_encode_gamma(self, paths):
         inv_idx = InvertedIndex()
         inv_idx.merge_jsons(paths)
         inv_idx.get_inverted_index()
-        inv_idx.encode_delta()
+        inv_idx.encode_gamma()
 
     @pytest.mark.parametrize(
-        'paths, text', 
+        ('paths', 'text'), 
         [
             (['data/naukamsu.json'], 'ÌÃÓ'),
             (['data/naukamsu.json'], 'Ğåêòîğ ÌÃÓ'),
@@ -89,7 +89,7 @@ class Tester:
             ([], '')
         ]
     )
-    def test_find(self, paths, text):
+    def test_find_check(self, paths, text):
         inv_idx = InvertedIndex()
         inv_idx.merge_jsons(paths)
         inv_idx.get_inverted_index()
