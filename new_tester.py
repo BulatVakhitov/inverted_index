@@ -48,11 +48,10 @@ class Tester:
         ]
     )
     def test_find(self, paths, text):
-        with does_not_raise():
-            inv_idx = InvertedIndex()
-            inv_idx.merge_jsons(paths)
-            inv_idx.get_inverted_index()
-            df = inv_idx.find(text, encoding=None)
+        inv_idx = InvertedIndex()
+        inv_idx.merge_jsons(paths)
+        inv_idx.get_inverted_index()
+        df = inv_idx.find(text, encoding=None)
     
     @pytest.mark.parametrize(
         'paths', 
