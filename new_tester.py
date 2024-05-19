@@ -32,17 +32,17 @@ class Tester:
         assert len_sum == len(inv_idx.df)
     
     def test_encode_decode_delta(self):
-        assert all(i == decode_delta_single(encode_delta_single(i)) for i in range(100000))
+        assert all(i == decode_delta_single(encode_delta_single(i)) for i in range(1, 100000))
 
     def test_encode_decode_gamma(self):
-        assert all(i == decode_gamma_single(encode_gamma_single(i)) for i in range(100000))
+        assert all(i == decode_gamma_single(encode_gamma_single(i)) for i in range(1, 100000))
     
     @pytest.mark.parametrize(
         'paths, text', 
         [
-            (['data/naukamsu.json'], 'МГУ'),
-            (['data/naukamsu.json'], 'Ректор МГУ'),
-            ([], 'Ректор МГУ'),
+            (['data/naukamsu.json'], 'пїЅпїЅпїЅ'),
+            (['data/naukamsu.json'], 'пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ'),
+            ([], 'пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ'),
             (['data/naukamsu.json'], ''),
             ([], '')
         ]
@@ -82,9 +82,9 @@ class Tester:
     @pytest.mark.parametrize(
         'paths, text', 
         [
-            (['data/naukamsu.json'], 'МГУ'),
-            (['data/naukamsu.json'], 'Ректор МГУ'),
-            ([], 'Ректор МГУ'),
+            (['data/naukamsu.json'], 'пїЅпїЅпїЅ'),
+            (['data/naukamsu.json'], 'пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ'),
+            ([], 'пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ'),
             (['data/naukamsu.json'], ''),
             ([], '')
         ]

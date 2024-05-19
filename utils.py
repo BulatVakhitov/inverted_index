@@ -1,4 +1,6 @@
 """ Some useful functions """
+from bitstring import BitArray
+
 
 def encode_delta_single(N):
     """ Source link: https://en.wikipedia.org/wiki/Elias_delta_coding """
